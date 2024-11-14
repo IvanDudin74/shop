@@ -10,7 +10,8 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active">Products</li>
+                        <li class="breadcrumb-item"><a href="{{ route('main.index') }}">main</a></li>
+                        <li class="breadcrumb-item active">products</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -52,7 +53,7 @@
                                         <td><a href="{{ route('product.show', $product->id) }}" title="more info">{{ Str::limit($product->content, 8) }}</a></td>
                                         <td style="text-align: center; ">
                                             <a href="{{ route('product.show', $product->id) }}" title="more info">
-                                                <img src="{{ ($product->preview_image == '') ? asset('storage/images/default.jpg') : asset('storage/' . $product->preview_image) }}" style="height: 30px;" alt="preview_image">
+                                                <img src="{{ ($product->productImages->first()) ? asset('storage/' . $product->productImages->first()->file_path) : asset('storage/images/default.jpg')}}" style="height: 30px;" alt="preview_image">
                                             </a>
                                         </td>
                                         <td><a href="{{ route('product.show', $product->id) }}" title="more info">{{ $product->quantity }}</a></td>

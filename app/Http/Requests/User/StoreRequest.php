@@ -29,6 +29,7 @@ class StoreRequest extends FormRequest
             'patronymic' => 'nullable|string',
             'gender' => 'nullable|integer',
             'address' => 'nullable|string',
+            'role' => 'required|integer',
         ];
     }
 
@@ -39,7 +40,7 @@ class StoreRequest extends FormRequest
             'email.required' => 'This item is required',
             'email.string' => 'This item must be string',
             'email.email' => 'This item must be email',
-            'email.unique' => 'This item must be exists in database',
+            'email.unique' => 'This item already exists in database',
             'password.required' => 'This item is required',
             'password.string' => 'This item must be string',
             'password.confirmed' => 'passwords dont match',
@@ -47,6 +48,8 @@ class StoreRequest extends FormRequest
             'patronymic.string' => 'This item must be string',
             'gender.integer' => 'This item must be integer',
             'address.string' => 'This items must be string',
+            'role.required' => 'This items is required',
+            'role.integer' => 'This items must be integer type',
         ];
     }
 }

@@ -9,7 +9,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ProductImage extends Model
 {
     use HasFactory;
-    use softDeletes;
     public $table = 'product_images';
     public $guarded = false;
+
+    public function getImageUrlAttribute() {
+        return url('storage/' . $this->file_path);
+    }
 }

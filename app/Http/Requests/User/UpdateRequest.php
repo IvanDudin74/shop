@@ -26,6 +26,7 @@ class UpdateRequest extends FormRequest
             'surname' => 'nullable|string',
             'patronymic' => 'nullable|string',
             'address' => 'nullable|string',
+            'role' => 'required|integer',
         ];
     }
 
@@ -36,6 +37,8 @@ class UpdateRequest extends FormRequest
             'surname.string' => 'This item must be string',
             'patronymic.string' => 'This item must be string',
             'address.string' => 'This items must be string',
+            'role.required' => 'This items is required',
+            'role.integer' => 'This items must be integer type',
         ];
     }
 }

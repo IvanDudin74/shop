@@ -25,7 +25,6 @@ class UpdateRequest extends FormRequest
             'title' => 'required|string',
             'description' => 'nullable|string',
             'content' => 'nullable|string',
-            'preview_image' => 'nullable|file',
             'quantity' => 'required|integer',
             'price' => 'required|integer',
             'is_published' => 'nullable',
@@ -34,6 +33,8 @@ class UpdateRequest extends FormRequest
             'tag_ids.*' => 'nullable|integer|exists:tags,id',
             'color_ids' => 'nullable|array',
             'color_ids.*' => 'nullable|integer|exists:colors,id',
+            'product_images' => 'nullable|array',
+            'product_images.*' => 'nullable|file',
         ];
     }
 
@@ -43,7 +44,6 @@ class UpdateRequest extends FormRequest
             'title.string' => 'This item must be string',
             'description.string' => 'This item must be string',
             'content.string' => 'This item must be string',
-            'preview_image.file' => 'This item must be file type',
             'quantity.required' => 'This item is required',
             'quantity.integer' => 'This item must be integer',
             'price.required' => 'This item is required',
@@ -56,6 +56,8 @@ class UpdateRequest extends FormRequest
             'color_ids.array' => 'This item must be array type',
             'color_ids.*.integer' => 'This items must be integer type',
             'color_ids.*.exists' => 'This items must be exists in database',
+            'product_images.array' => 'This item must be array type',
+            'product_images.*.file' => 'This item must be file type',
         ];
     }
 }

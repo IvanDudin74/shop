@@ -10,7 +10,10 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active">Edit product</li>
+                        <li class="breadcrumb-item"><a href="{{ route('main.index') }}">main</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('product.index') }}">products</a></li>
+                        <li class="breadcrumb-item active"><a href="{{ route('product.show', $product->id) }}">product</a></li>
+                        <li class="breadcrumb-item active">edit</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -25,58 +28,64 @@
                 <form action="{{ route('product.update', $product->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('patch')
+
                     <div class="form-group">
                         <input name="title" type="text" placeholder="title" class="form-control" value="{{ $product->title }}">
                     </div>
                     @error('title')
-                    <div class="text-danger mb-5">{{ $message }}</div>
+                        <div class="text-danger mb-5">{{ $message }}</div>
                     @enderror
 
                     <div class="form-group">
                         <input name="description" type="text" placeholder="description" class="form-control" value="{{ $product->description }}">
                     </div>
                     @error('description')
-                    <div class="text-danger mb-5">{{ $message }}</div>
+                        <div class="text-danger mb-5">{{ $message }}</div>
                     @enderror
 
-                    <div class="form-group">
-                        <textarea name="content" placeholder="content" class="form-control">{{ $product->content }}</textarea>
+                    <div class="form-group mb-5">
+                        <textarea name="content" placeholder="content" class="form-control" rows="4">{{ $product->content }}</textarea>
                     </div>
                     @error('content')
-                    <div class="text-danger mb-5">{{ $message }}</div>
+                        <div class="text-danger mb-5">{{ $message }}</div>
                     @enderror
 
-                    <div class="form-group w-75 mb-5">
-                        <div class="w-25">
-                            <img src="{{ ($product->preview_image == '') ? asset('storage/images/default.jpg') : asset('storage/' . $product->preview_image) }}" style="height: 100px;">
+                    <div class="form-group mb-5">
+                        <div class="mb-3">
+                            @foreach($product->productImages as $productImage)
+                                <a class="" href="{{ route('product_image.show', $productImage->id) }}">
+                                    <img src="{{ asset('storage/' . $productImage->file_path) }}" style="height: 60px;">
+                                </a>
+                            @endforeach
                         </div>
-                        <label for="exampleInputFile">Update preview image</label>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="preview_image" value="{{ $product->preview_image }}">
-                                <label class="custom-file-label">Choose image</label>
-                            </div>
-                            <div class="input-group-append">
-                                <span class="input-group-text">Upload</span>
-                            </div>
+                        <div>
+                            <label for="exampleInputFile">{{ ($product->productImages->count() != $product->maxCountImages) ? 'Add images' : ''}}</label>
+                            @for($i = 0; $i < ($product->maxCountImages - $product->productImages->count()); $i++)
+                                <div class="input-group mb-2">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="product_images[]">
+                                        <label class="custom-file-label">Choose image</label>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Upload</span>
+                                    </div>
+                                </div>
+                            @endfor
                         </div>
                     </div>
-                    @error('preview_image')
-                    <div class="text-danger mb-5">{{ $message }}</div>
-                    @enderror
 
                     <div class="form-group">
                         <input name="quantity" type="text" placeholder="quantity" class="form-control" value="{{ $product->quantity }}">
                     </div>
                     @error('quantity')
-                    <div class="text-danger mb-5">{{ $message }}</div>
+                        <div class="text-danger mb-5">{{ $message }}</div>
                     @enderror
 
                     <div class="form-group">
                         <input name="price" type="text" placeholder="price" class="form-control" value="{{ $product->price }}">
                     </div>
                     @error('price')
-                    <div class="text-danger mb-5">{{ $message }}</div>
+                        <div class="text-danger mb-5">{{ $message }}</div>
                     @enderror
 
                     <div class="form-check mb-3">
@@ -93,7 +102,7 @@
                         </select>
                     </div>
                     @error('category_id')
-                    <div class="text-danger mb-5">{{ $message }}</div>
+                        <div class="text-danger mb-5">{{ $message }}</div>
                     @enderror
 
                     <div class="form-group">
@@ -106,7 +115,7 @@
                         </select>
                     </div>
                     @error('tag_ids[]')
-                    <div class="text-danger mb-5">{{ $message }}</div>
+                        <div class="text-danger mb-5">{{ $message }}</div>
                     @enderror
 
                     <div class="form-group">
@@ -119,7 +128,7 @@
                         </select>
                     </div>
                     @error('color_ids[]')
-                    <div class="text-danger mb-5">{{ $message }}</div>
+                        <div class="text-danger mb-5">{{ $message }}</div>
                     @enderror
 
                     <div class="form-group">
@@ -132,4 +141,6 @@
     </section>
     <!-- /.content -->
 @endsection
+
+
 

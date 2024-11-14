@@ -10,7 +10,8 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active">Colors</li>
+                        <li class="breadcrumb-item"><a href="{{ route('main.index') }}">main</a></li>
+                        <li class="breadcrumb-item active">colors</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -42,7 +43,7 @@
                                     <tr>
                                         <td>{{ $color->id }}</td>
                                         <td><a href="{{ route('color.show', $color->id) }}">#{{ $color->title }}</a></td>
-                                        <td><div style="width: 15px; height: 15px; background: {{ '#' . $color->title }}"></div></td>
+                                        <td><div style="width: 15px; height: 15px; background: {{ '#' . $color->title }}; border: 1px solid;"></div></td>
                                     </tr>
                                 @endforeach
                                 </tbody>

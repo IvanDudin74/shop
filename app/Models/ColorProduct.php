@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ColorProduct extends Model
 {
     use HasFactory;
-    use softDeletes;
     public $table = 'color_product';
     public $guarded = false;
 }

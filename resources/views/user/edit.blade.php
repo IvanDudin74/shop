@@ -10,7 +10,10 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active">Edit user</li>
+                        <li class="breadcrumb-item"><a href="{{ route('main.index') }}">main</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('user.index') }}">users</a></li>
+                        <li class="breadcrumb-item active"><a href="{{ route('user.show', $user->id) }}">user</a></li>
+                        <li class="breadcrumb-item active">edit</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -54,6 +57,16 @@
                         <input name="address" type="text" placeholder="address" class="form-control" value="{{ $user->address ?? old('address') }}">
                     </div>
                     @error('address')
+                    <div class="text-danger mb-5">{{ $message }}</div>
+                    @enderror
+
+                    <div class="form-group">
+                        <select name="role" class="custom-select form-control-border" id="exampleSelectBorder">
+                            <option value="0" {{ ($user->role === 0) ? 'selected' : '' }}>user</option>
+                            <option value="1" {{ ($user->role === 1) ? 'selected' : '' }}>admin</option>
+                        </select>
+                    </div>
+                    @error('role')
                     <div class="text-danger mb-5">{{ $message }}</div>
                     @enderror
 

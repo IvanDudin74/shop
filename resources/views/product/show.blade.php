@@ -10,7 +10,9 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active">Product</li>
+                        <li class="breadcrumb-item"><a href="{{ route('main.index') }}">main</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('product.index') }}">products</a></li>
+                        <li class="breadcrumb-item active">product</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -54,11 +56,13 @@
                                     <td>{{ $product->content }}</td>
                                 </tr>
                                 <tr>
-                                    <td>preview image</td>
+                                    <td>images</td>
                                     <td>
-                                        <a href="{{ asset('storage/' . $product->preview_image) }}">
-                                            <img src="{{ ($product->preview_image == '') ? asset('storage/images/default.jpg') : asset('storage/' . $product->preview_image) }}" style="height: 100px;">
-                                        </a>
+                                        @foreach($product->productImages as $productImage)
+                                            <a href="{{ asset('storage/' . $productImage->file_path) }}">
+                                                <img src="{{ asset('storage/' . $productImage->file_path) }}" style="height: 60px;">
+                                            </a>
+                                        @endforeach
                                     </td>
                                 </tr>
                                 <tr>
@@ -82,13 +86,44 @@
                                     <td>
                                         @foreach($product->colors as $color)
                                             {{ '#' . $color->title . ' ' }}
-                                            <div class="mr-3" style="display: inline-block; width: 15px; height: 15px; background: {{ '#' . $color->title }}"></div>
+                                            <div class="mr-3" style="display: inline-block; width: 15px; height: 15px; background: {{ '#' . $color->title }}; border: 1px solid;"></div>
                                         @endforeach
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>tags</td>
                                     <td>@foreach($product->tags as $tag) {{ $tag->title . ' ' }} @endforeach</td>
+                                </tr>
+                                <tr>
+                                    <td>reviews</td>
+                                    <td>
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>user-name</th>
+                                                <th>content</th>
+                                                <th>created_at</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($reviews as $review)
+                                                <tr>
+                                                    <td>{{ $review->user->name  }}</td>
+                                                    <td>{{ $review->content }}</td>
+                                                    <td>{{ $review->createdAtInFormat }}</td>
+                                                    <td>
+                                                        <form action="{{ route('review.delete', $review->id) }}" method="post">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <input type="submit" class="btn btn-primary" value="Delete">
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>

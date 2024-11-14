@@ -10,7 +10,8 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active">Users</li>
+                        <li class="breadcrumb-item"><a href="{{ route('main.index') }}">main</a></li>
+                        <li class="breadcrumb-item active">users</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -39,6 +40,7 @@
                                     <th>surname</th>
                                     <th>gender</th>
                                     <th>address</th>
+                                    <th>role</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -49,8 +51,9 @@
                                         <td><a href="{{ route('user.show', $user->id) }}">{{ $user->name }}</a></td>
                                         <td><a href="{{ route('user.show', $user->id) }}">{{ $user->patronymic }}</a></td>
                                         <td><a href="{{ route('user.show', $user->id) }}">{{ $user->surname }}</a></td>
-                                        <td><a href="{{ route('user.show', $user->id) }}">{{ $user->genderTitleAsText }}</a></td>
+                                        <td><a href="{{ route('user.show', $user->id) }}">{{ $user->genderAsText }}</a></td>
                                         <td><a href="{{ route('user.show', $user->id) }}">{{ $user->address }}</a></td>
+                                        <td><a href="{{ route('user.show', $user->id) }}">{{ $user->roleAsText }}</a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>

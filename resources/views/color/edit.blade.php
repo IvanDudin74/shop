@@ -10,7 +10,10 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active">Edit color</li>
+                        <li class="breadcrumb-item"><a href="{{ route('main.index') }}">main</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('color.index') }}">colors</a></li>
+                        <li class="breadcrumb-item active"><a href="{{ route('color.show', $color->id) }}">color</a></li>
+                        <li class="breadcrumb-item active">edit</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -26,7 +29,8 @@
                     @csrf
                     @method('patch')
                     <div class="form-group">
-                        #<input name="title" type="text" class="" placeholder="title" value="{{ $color->title }}" size="6">
+                        #<input name="title" id="title" type="text" class="mb-3" placeholder="title" value="{{ $color->title }}" size="6" onchange="setBarColor()">
+                        <div id="bar" style="width: 25px; height: 25px; background: {{ '#' . $color->title }}"></div>
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-primary" value="Submit">
@@ -37,5 +41,14 @@
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+    <script>
+        function setBarColor() {
+            var colorRGBCode = document.getElementById('title').value
+            if (!colorRGBCode) {
+                colorRGBCode = 'efefef'
+            }
+            document.getElementById('bar').style.background = '#' + colorRGBCode;
+        }
+    </script>
 @endsection
 

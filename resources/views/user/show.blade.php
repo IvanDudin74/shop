@@ -10,7 +10,9 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active">User</li>
+                        <li class="breadcrumb-item"><a href="{{ route('main.index') }}">main</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('user.index') }}">users</a></li>
+                        <li class="breadcrumb-item active">user</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -59,11 +61,15 @@
                                 </tr>
                                 <tr>
                                     <td>gender</td>
-                                    <td>{{ $user->gender }}</td>
+                                    <td>{{ $user->GenderTitleAsText }}</td>
                                 </tr>
                                 <tr>
                                     <td>address</td>
                                     <td>{{ $user->address }}</td>
+                                </tr>
+                                <tr>
+                                    <td>role</td>
+                                    <td>{{ $user->roleAsText }}</td>
                                 </tr>
                                 </tbody>
                             </table>

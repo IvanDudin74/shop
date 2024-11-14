@@ -7,15 +7,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use HasFactory;
     use Notifiable;
-    use softDeletes;
 
     const GENDER_MEN = 1;
     const GENDER_WOMEN = 2;
+
+    const ROLE_USER = 0;
+    const ROLE_ADMIN = 1;
 
     public $table = 'users';
     public $guarded = false;
@@ -27,9 +30,24 @@ class User extends Authenticatable
         ];
     }
 
-    public function getGenderTitleAsTextAttribute() {
-        //return self::getGenders()[$this->gender];
-        return $this->gender;
+    static function getRoles() {
+        return [
+            self::ROLE_USER => 'User',
+            self::ROLE_ADMIN => 'Admin',
+        ];
+    }
+
+    public function getGenderAsTextAttribute() {
+        if ($this->gender) {
+            return self::getGenders()[$this->gender];
+        }
+        else {
+            return null;
+        }
+    }
+
+    public function getRoleAsTextAttribute() {
+        return self::getRoles()[$this->role];
     }
 
     /**
@@ -45,6 +63,7 @@ class User extends Authenticatable
         'patronymic',
         'gender',
         'address',
+        'role',
     ];
 
     /**
@@ -68,5 +87,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

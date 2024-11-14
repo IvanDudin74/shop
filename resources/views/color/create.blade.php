@@ -10,7 +10,9 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active">Create color</li>
+                        <li class="breadcrumb-item"><a href="{{ route('main.index') }}">main</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('color.index') }}">colors</a></li>
+                        <li class="breadcrumb-item active">create</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -39,7 +41,11 @@
     <!-- /.content -->
     <script>
         function setBarColor() {
-            document.getElementById('bar').style.background = '#' + document.getElementById('title').value;
+            var colorRGBCode = document.getElementById('title').value
+            if (!colorRGBCode) {
+                colorRGBCode = 'efefef'
+            }
+            document.getElementById('bar').style.background = '#' + colorRGBCode;
         }
     </script>
 @endsection

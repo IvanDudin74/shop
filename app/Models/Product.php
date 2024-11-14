@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -9,10 +10,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use HasFactory;
-    use softDeletes;
+    use Filterable;
 
     const IS_PUBLISHED_FALSE = 0;
     const IS_PUBLISHED_TRUE = 1;
+    const MAX_COUNT_IMAGES = 3;
 
     public $table = 'products';
     public $guarded = false;
@@ -29,7 +31,7 @@ class Product extends Model
     }
 
     public function getOldPriceAttribute() {
-        return (($this->price)/100)* 120;
+        return (($this->price)/100) * 120;
     }
 
     public function getImageUrlAttribute() {
@@ -39,6 +41,10 @@ class Product extends Model
         else {
             return url('storage/images/default.jpg');
         }
+    }
+
+    public function getMaxCountImagesAttribute() {
+        return self::MAX_COUNT_IMAGES;
     }
 
     public function category() {
@@ -53,4 +59,11 @@ class Product extends Model
         return $this->belongsToMany(Color::class, 'color_products', 'product_id', 'color_id');
     }
 
+    public function productImages() {
+        return $this->hasMany(ProductImage::class, 'product_id', 'id');
+    }
+
+    public function reviews() {
+        return $this->hasMany(Review::class, 'product_id', 'id');
+    }
 }

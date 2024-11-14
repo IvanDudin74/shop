@@ -6,11 +6,14 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Edit categoriy</h1>
+                    <h1 class="m-0">Edit category</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active">Edit categoriy</li>
+                        <li class="breadcrumb-item"><a href="{{ route('main.index') }}">main</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('category.index') }}">categories</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('category.show', $category->id) }}">category</a></li>
+                        <li class="breadcrumb-item active">edit</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
